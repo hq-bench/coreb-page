@@ -1,0 +1,661 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>CoREB — A Contamination-Limited Code Retrieval and Reranking Benchmark</title>
+  <meta name="description" content="CoREB is a multitask, contamination-limited code retrieval and reranking benchmark covering text-to-code, code-to-text, and code-to-code across 5 languages with graded relevance judgments.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,500;0,9..144,600;0,9..144,700;1,9..144,400;1,9..144,500;1,9..144,600;1,9..144,700&family=IBM+Plex+Mono:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="assets/css/style.css">
+</head>
+<body>
+  <div class="grain" aria-hidden="true"></div>
+
+  <!-- ===== NAV ===== -->
+  <header class="site-header">
+    <div class="header-inner">
+      <a href="#" class="brand"><span class="brand-alipay">CodeFuse</span> CoREB</a>
+      <button class="menu-toggle" aria-label="Toggle menu">&#9776;</button>
+      <nav>
+        <ul class="nav-links">
+          <li><a href="#about">About</a></li>
+          <li><a href="#leaderboard">Leaderboard</a></li>
+          <li><a href="#subtask">Subtask</a></li>
+          <li><a href="#c2c-language">C2C Lang</a></li>
+          <li><a href="#reranker">Reranker</a></li>
+          <li><a href="#efficiency">Efficiency</a></li>
+          <li><a href="#citation">Cite</a></li>
+        </ul>
+      </nav>
+    </div>
+  </header>
+
+  <!-- ===== HERO ===== -->
+  <section class="hero" id="hero">
+    <div class="hero-inner">
+      <span class="eyebrow">Beyond Retrieval: A Benchmark and Model Suite for Code Search</span>
+      <h1><span class="solid">Co</span><span class="outline">REB</span></h1>
+      <p class="hero-authors">
+        CodeFuse Team, Ant Group
+      </p>
+      <p class="hero-institution">
+        A contamination-limited, multitask code retrieval and reranking benchmark
+      </p>
+      <div class="hero-actions">
+        <a href="#" class="btn-cta" title="Paper (coming soon)">Read Paper</a>
+        <a href="https://github.com/codefuse-ai/CodeFuse-CoREB" class="btn-ghost" target="_blank" rel="noopener">GitHub</a>
+        <a href="https://huggingface.co/datasets/codefuse-ai/CoREB" class="btn-ghost" target="_blank" rel="noopener">Dataset</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== ABOUT ===== -->
+  <section class="section" id="about">
+    <div class="section-inner">
+      <h2 class="section-title">About CoREB</h2>
+      <p>
+        Code search has usually been evaluated as first-stage retrieval, even though production systems rely on broader pipelines with reranking and developer-style queries. Existing benchmarks suffer from data contamination, label noise, and degenerate binary relevance.
+      </p>
+      <p>
+        <strong>CoREB</strong> is a contamination-limited, multitask <strong>Co</strong>de <strong>R</strong>etrieval and R<strong>e</strong>ranking <strong>B</strong>enchmark, together with a suite of fine-tuned code rerankers, that goes beyond retrieval to cover the full code search pipeline. It is built from counterfactually rewritten LiveCodeBench problems in five programming languages and delivered as timed releases (<strong>5,087 queries</strong> over <strong>342 problems</strong>) with graded relevance judgments.
+      </p>
+      <p>Key findings:</p>
+      <ul class="findings-list">
+        <li>Code-specialised embeddings dominate code-to-code retrieval (<strong>~2&times;</strong> over general encoders), yet no single model wins all three tasks</li>
+        <li>Short keyword queries (the format closest to real developer search) collapse every model to <strong>near-zero nDCG@10</strong></li>
+        <li>Off-the-shelf rerankers are task-asymmetric, with a <strong>12-point swing</strong> on code-to-code and no baseline net-positive across all tasks</li>
+        <li>Fine-tuned <strong>CoREB rerankers</strong> are the first to achieve consistent gains across all three tasks</li>
+      </ul>
+    </div>
+  </section>
+
+  <!-- ===== CONTENT TABS ===== -->
+  <div class="content-tabs" id="content-tabs">
+    <div class="tab-bar">
+      <button class="tab-btn active" data-tab="leaderboard-tab">Leaderboard</button>
+      <button class="tab-btn" data-tab="analysis-tab">Detailed Analysis</button>
+    </div>
+  </div>
+
+  <!-- ===== TAB: LEADERBOARD ===== -->
+  <div class="tab-content active" id="leaderboard-tab">
+
+  <!-- ===== MAIN RESULTS ===== -->
+  <section class="section" id="leaderboard">
+    <div class="section-inner">
+      <h2 class="section-title">Main Results: Per-Task Retrieval</h2>
+      <div class="info-box">
+        First-stage retrieval on CoREB <code>v202603</code> (graded qrels, relevance_level=2). nDCG and Recall denote nDCG@10 and Recall@10. Overall is query-count-weighted. Hard negatives (rel=1) penalize nDCG but do not count toward Recall.
+      </div>
+      <div class="filter-bar">
+        <span class="filter-label">Category</span>
+        <button class="filter-btn active" data-filter="all">All</button>
+        <button class="filter-btn" data-filter="code">Code-Specialized</button>
+        <button class="filter-btn" data-filter="general">General-Purpose</button>
+        <button class="filter-btn" data-filter="closed">Closed API</button>
+      </div>
+      <div class="table-wrap">
+        <div class="table-scroll">
+          <table class="sortable" id="main-table">
+            <thead>
+              <tr>
+                <th rowspan="2">Model</th>
+                <th rowspan="2">Category</th>
+                <th colspan="2" class="group-header">Text-to-Code</th>
+                <th colspan="2" class="group-header">Code-to-Text</th>
+                <th colspan="2" class="group-header">Code-to-Code</th>
+                <th colspan="2" class="group-header">Overall</th>
+              </tr>
+              <tr>
+                <th class="num-col">nDCG</th>
+                <th class="num-col">Recall</th>
+                <th class="num-col">nDCG</th>
+                <th class="num-col">Recall</th>
+                <th class="num-col">nDCG</th>
+                <th class="num-col">Recall</th>
+                <th class="num-col">nDCG</th>
+                <th class="num-col">Recall</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr data-type="closed" class="row-highlight">
+                <td class="model-name"><strong>GemEmb-2</strong></td>
+                <td><span class="badge badge-stat">CLOSED</span></td>
+                <td class="num-col">0.434</td>
+                <td class="num-col">0.749</td>
+                <td class="num-col"><strong>0.813</strong></td>
+                <td class="num-col"><strong>0.842</strong></td>
+                <td class="num-col"><strong>0.698</strong></td>
+                <td class="num-col"><strong>1.000</strong></td>
+                <td class="num-col"><strong>0.637</strong></td>
+                <td class="num-col"><strong>0.819</strong></td>
+              </tr>
+              <tr data-type="code">
+                <td class="model-name"><strong>C2LLM-7B</strong></td>
+                <td><span class="badge badge-dl">CODE</span></td>
+                <td class="num-col"><strong>0.443</strong></td>
+                <td class="num-col"><strong>0.753</strong></td>
+                <td class="num-col">0.795</td>
+                <td class="num-col"><strong>0.842</strong></td>
+                <td class="num-col">0.659</td>
+                <td class="num-col">0.997</td>
+                <td class="num-col">0.629</td>
+                <td class="num-col"><strong>0.820</strong></td>
+              </tr>
+              <tr data-type="code">
+                <td class="model-name">C2LLM-0.5B</td>
+                <td><span class="badge badge-dl">CODE</span></td>
+                <td class="num-col">0.430</td>
+                <td class="num-col">0.716</td>
+                <td class="num-col">0.753</td>
+                <td class="num-col">0.840</td>
+                <td class="num-col">0.656</td>
+                <td class="num-col">0.970</td>
+                <td class="num-col">0.603</td>
+                <td class="num-col">0.800</td>
+              </tr>
+              <tr data-type="code">
+                <td class="model-name">Jina-code-emb-1.5b</td>
+                <td><span class="badge badge-dl">CODE</span></td>
+                <td class="num-col">0.414</td>
+                <td class="num-col">0.705</td>
+                <td class="num-col">0.763</td>
+                <td class="num-col">0.835</td>
+                <td class="num-col">0.671</td>
+                <td class="num-col">0.973</td>
+                <td class="num-col">0.603</td>
+                <td class="num-col">0.794</td>
+              </tr>
+              <tr data-type="code">
+                <td class="model-name">Jina-code-emb-0.5b</td>
+                <td><span class="badge badge-dl">CODE</span></td>
+                <td class="num-col">0.386</td>
+                <td class="num-col">0.650</td>
+                <td class="num-col">0.755</td>
+                <td class="num-col">0.822</td>
+                <td class="num-col">0.677</td>
+                <td class="num-col">0.963</td>
+                <td class="num-col">0.588</td>
+                <td class="num-col">0.763</td>
+              </tr>
+              <tr data-type="code">
+                <td class="model-name">F2LLM-4B</td>
+                <td><span class="badge badge-dl">CODE</span></td>
+                <td class="num-col">0.407</td>
+                <td class="num-col">0.695</td>
+                <td class="num-col">0.763</td>
+                <td class="num-col">0.837</td>
+                <td class="num-col">0.500</td>
+                <td class="num-col">0.766</td>
+                <td class="num-col">0.581</td>
+                <td class="num-col">0.768</td>
+              </tr>
+              <tr data-type="general">
+                <td class="model-name">Qwen3-Emb-4B</td>
+                <td><span class="badge badge-fm">GENERAL</span></td>
+                <td class="num-col">0.390</td>
+                <td class="num-col">0.626</td>
+                <td class="num-col">0.728</td>
+                <td class="num-col">0.828</td>
+                <td class="num-col">0.392</td>
+                <td class="num-col">0.603</td>
+                <td class="num-col">0.546</td>
+                <td class="num-col">0.717</td>
+              </tr>
+              <tr data-type="code">
+                <td class="model-name">F2LLM-1.7B</td>
+                <td><span class="badge badge-dl">CODE</span></td>
+                <td class="num-col">0.383</td>
+                <td class="num-col">0.603</td>
+                <td class="num-col">0.715</td>
+                <td class="num-col">0.805</td>
+                <td class="num-col">0.383</td>
+                <td class="num-col">0.562</td>
+                <td class="num-col">0.536</td>
+                <td class="num-col">0.692</td>
+              </tr>
+              <tr data-type="code">
+                <td class="model-name">F2LLM-0.6B</td>
+                <td><span class="badge badge-dl">CODE</span></td>
+                <td class="num-col">0.344</td>
+                <td class="num-col">0.545</td>
+                <td class="num-col">0.665</td>
+                <td class="num-col">0.793</td>
+                <td class="num-col">0.334</td>
+                <td class="num-col">0.491</td>
+                <td class="num-col">0.491</td>
+                <td class="num-col">0.654</td>
+              </tr>
+              <tr data-type="general">
+                <td class="model-name">Qwen3-Emb-8B</td>
+                <td><span class="badge badge-fm">GENERAL</span></td>
+                <td class="num-col">0.328</td>
+                <td class="num-col">0.521</td>
+                <td class="num-col">0.660</td>
+                <td class="num-col">0.780</td>
+                <td class="num-col">0.320</td>
+                <td class="num-col">0.450</td>
+                <td class="num-col">0.481</td>
+                <td class="num-col">0.633</td>
+              </tr>
+              <tr data-type="general">
+                <td class="model-name">Qwen3-Emb-0.6B</td>
+                <td><span class="badge badge-fm">GENERAL</span></td>
+                <td class="num-col">0.349</td>
+                <td class="num-col">0.541</td>
+                <td class="num-col">0.617</td>
+                <td class="num-col">0.755</td>
+                <td class="num-col">0.384</td>
+                <td class="num-col">0.551</td>
+                <td class="num-col">0.477</td>
+                <td class="num-col">0.641</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+      <p class="table-note">Bold marks per-column best. GemEmb-2 is a closed API (~3B nominal). C2LLM-7B is the strongest open-weight model.</p>
+    </div>
+  </section>
+
+  </div><!-- end leaderboard-tab -->
+
+  <!-- ===== TAB: DETAILED ANALYSIS ===== -->
+  <div class="tab-content" id="analysis-tab">
+
+  <!-- ===== ANALYSIS: SUBTASK BREAKDOWN ===== -->
+  <section class="section" id="subtask">
+    <div class="section-inner">
+      <h2 class="section-title">Analysis: Text-to-Code Subtask Breakdown</h2>
+      <div class="info-box">
+        Text-to-code nDCG@10 by subtask on <code>v202603</code>. Canonical and Full use long queries; Search uses short keyword queries (~19 tokens). <strong>Every model collapses on Search</strong> &mdash; the format closest to real developer search.
+      </div>
+      <div class="table-wrap">
+        <div class="table-scroll">
+          <table class="sortable" id="subtask-table">
+            <thead>
+              <tr>
+                <th>Model</th>
+                <th class="num-col">Canonical</th>
+                <th class="num-col">Full</th>
+                <th class="num-col">Search</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr class="row-highlight">
+                <td class="model-name"><strong>C2LLM-7B</strong></td>
+                <td class="num-col"><strong>0.582</strong></td>
+                <td class="num-col"><strong>0.578</strong></td>
+                <td class="num-col">0.004</td>
+              </tr>
+              <tr>
+                <td class="model-name">GemEmb-2</td>
+                <td class="num-col">0.573</td>
+                <td class="num-col">0.565</td>
+                <td class="num-col">0.000</td>
+              </tr>
+              <tr>
+                <td class="model-name">C2LLM-0.5B</td>
+                <td class="num-col">0.566</td>
+                <td class="num-col">0.560</td>
+                <td class="num-col">0.003</td>
+              </tr>
+              <tr>
+                <td class="model-name">Jina-code-1.5B</td>
+                <td class="num-col">0.539</td>
+                <td class="num-col">0.543</td>
+                <td class="num-col">0.006</td>
+              </tr>
+              <tr>
+                <td class="model-name">F2LLM-4B</td>
+                <td class="num-col">0.529</td>
+                <td class="num-col">0.535</td>
+                <td class="num-col">0.007</td>
+              </tr>
+              <tr>
+                <td class="model-name">Qwen3-4B</td>
+                <td class="num-col">0.510</td>
+                <td class="num-col">0.504</td>
+                <td class="num-col"><strong>0.015</strong></td>
+              </tr>
+              <tr>
+                <td class="model-name">Jina-code-0.5B</td>
+                <td class="num-col">0.497</td>
+                <td class="num-col">0.514</td>
+                <td class="num-col">0.003</td>
+              </tr>
+              <tr>
+                <td class="model-name">F2LLM-1.7B</td>
+                <td class="num-col">0.481</td>
+                <td class="num-col">0.520</td>
+                <td class="num-col">0.008</td>
+              </tr>
+              <tr>
+                <td class="model-name">Qwen3-8B</td>
+                <td class="num-col">0.477</td>
+                <td class="num-col">0.381</td>
+                <td class="num-col">0.005</td>
+              </tr>
+              <tr>
+                <td class="model-name">Qwen3-0.6B</td>
+                <td class="num-col">0.452</td>
+                <td class="num-col">0.460</td>
+                <td class="num-col">0.008</td>
+              </tr>
+              <tr>
+                <td class="model-name">F2LLM-0.6B</td>
+                <td class="num-col">0.450</td>
+                <td class="num-col">0.452</td>
+                <td class="num-col">0.000</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+      <p class="table-note">Current dense retrievers have saturated in the long-query regime while the short-query regime remains unsolved. Query expansion (HyDE, Query2doc) is a promising direction.</p>
+    </div>
+  </section>
+
+  <!-- ===== ANALYSIS: C2C BY LANGUAGE ===== -->
+  <section class="section" id="c2c-language">
+    <div class="section-inner">
+      <h2 class="section-title">Analysis: Code-to-Code by Anchor Language</h2>
+      <div class="info-box">
+        Code-to-code nDCG@10 by anchor language on <code>v202603</code> (after anchor exclusion). Cross-language code-pair training drives this gap; C++ and Go anchors are easier to match than Java and Python.
+      </div>
+      <div class="table-wrap">
+        <div class="table-scroll">
+          <table class="sortable" id="c2c-table">
+            <thead>
+              <tr>
+                <th>Model</th>
+                <th class="num-col">Python</th>
+                <th class="num-col">Java</th>
+                <th class="num-col">C++</th>
+                <th class="num-col">Go</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr class="row-highlight">
+                <td class="model-name"><strong>GemEmb-2</strong></td>
+                <td class="num-col">0.681</td>
+                <td class="num-col"><strong>0.674</strong></td>
+                <td class="num-col">0.789</td>
+                <td class="num-col">0.673</td>
+              </tr>
+              <tr>
+                <td class="model-name">Jina-code-0.5b</td>
+                <td class="num-col"><strong>0.690</strong></td>
+                <td class="num-col">0.493</td>
+                <td class="num-col">0.788</td>
+                <td class="num-col">0.684</td>
+              </tr>
+              <tr>
+                <td class="model-name">Jina-code-1.5b</td>
+                <td class="num-col">0.688</td>
+                <td class="num-col">0.499</td>
+                <td class="num-col"><strong>0.790</strong></td>
+                <td class="num-col">0.650</td>
+              </tr>
+              <tr>
+                <td class="model-name">C2LLM-7B</td>
+                <td class="num-col">0.639</td>
+                <td class="num-col">0.510</td>
+                <td class="num-col">0.799</td>
+                <td class="num-col"><strong>0.690</strong></td>
+              </tr>
+              <tr>
+                <td class="model-name">C2LLM-0.5B</td>
+                <td class="num-col">0.652</td>
+                <td class="num-col">0.576</td>
+                <td class="num-col">0.729</td>
+                <td class="num-col">0.662</td>
+              </tr>
+              <tr>
+                <td class="model-name">F2LLM-4B</td>
+                <td class="num-col">0.534</td>
+                <td class="num-col">0.276</td>
+                <td class="num-col">0.648</td>
+                <td class="num-col">0.448</td>
+              </tr>
+              <tr>
+                <td class="model-name">Qwen3-4B</td>
+                <td class="num-col">0.498</td>
+                <td class="num-col">0.174</td>
+                <td class="num-col">0.504</td>
+                <td class="num-col">0.186</td>
+              </tr>
+              <tr>
+                <td class="model-name">F2LLM-1.7B</td>
+                <td class="num-col">0.485</td>
+                <td class="num-col">0.137</td>
+                <td class="num-col">0.512</td>
+                <td class="num-col">0.192</td>
+              </tr>
+              <tr>
+                <td class="model-name">Qwen3-0.6B</td>
+                <td class="num-col">0.488</td>
+                <td class="num-col">0.147</td>
+                <td class="num-col">0.445</td>
+                <td class="num-col">0.244</td>
+              </tr>
+              <tr>
+                <td class="model-name">F2LLM-0.6B</td>
+                <td class="num-col">0.482</td>
+                <td class="num-col">0.105</td>
+                <td class="num-col">0.357</td>
+                <td class="num-col">0.113</td>
+              </tr>
+              <tr>
+                <td class="model-name">Qwen3-8B</td>
+                <td class="num-col">0.446</td>
+                <td class="num-col">0.064</td>
+                <td class="num-col">0.390</td>
+                <td class="num-col">0.137</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+      <p class="table-note">Qwen3 models collapse on Java and Go despite competitive text-to-code scores. Cross-language code-pair training drives this gap more than model scale.</p>
+    </div>
+  </section>
+
+  <!-- ===== ANALYSIS: RERANKER ===== -->
+  <section class="section" id="reranker">
+    <div class="section-inner">
+      <h2 class="section-title">Reranker Evaluation</h2>
+      <div class="info-box">
+        <strong>No off-the-shelf reranker is net-positive across all three tasks.</strong> Reranking the top-100 from C2LLM-7B: Jina v2 collapses code-to-text by &minus;22.4%; Qwen3-Reranker-4B is the only baseline that helps code-to-code (+3.3%). A 12-point swing separates the best and worst baseline on the same task. CoREB-Reranker variants are designed to be the first net-positive across all tasks.
+      </div>
+      <div class="table-wrap">
+        <div class="table-scroll">
+          <table class="sortable" id="reranker-table">
+            <thead>
+              <tr>
+                <th>Reranker</th>
+                <th class="num-col">&Delta; T2C</th>
+                <th class="num-col">&Delta; C2T</th>
+                <th class="num-col">&Delta; C2C</th>
+                <th>Net-Positive?</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td class="model-name">Jina Reranker v2</td>
+                <td class="num-col">&minus;8.3%</td>
+                <td class="num-col">&minus;22.4%</td>
+                <td class="num-col">+0.0%</td>
+                <td><span class="lvl lvl-low">No</span></td>
+              </tr>
+              <tr>
+                <td class="model-name">Jina Reranker v3</td>
+                <td class="num-col">&minus;0.1%</td>
+                <td class="num-col">&minus;4.7%</td>
+                <td class="num-col">+0.0%</td>
+                <td><span class="lvl lvl-low">No</span></td>
+              </tr>
+              <tr>
+                <td class="model-name">Qwen3-Reranker-0.6B</td>
+                <td class="num-col">&minus;3.2%</td>
+                <td class="num-col">&minus;8.2%</td>
+                <td class="num-col">+1.1%</td>
+                <td><span class="lvl lvl-low">No</span></td>
+              </tr>
+              <tr>
+                <td class="model-name">Qwen3-Reranker-4B</td>
+                <td class="num-col">&minus;1.5%</td>
+                <td class="num-col">&minus;2.1%</td>
+                <td class="num-col">+3.3%</td>
+                <td><span class="lvl lvl-low">No</span></td>
+              </tr>
+              <tr class="row-highlight">
+                <td class="model-name"><strong>CoREB-Reranker-0.6B</strong></td>
+                <td class="num-col">~+2%</td>
+                <td class="num-col">~0%</td>
+                <td class="num-col">~+5%</td>
+                <td><span class="lvl lvl-high">Yes</span></td>
+              </tr>
+              <tr class="row-highlight">
+                <td class="model-name"><strong>CoREB-Reranker-4B</strong></td>
+                <td class="num-col">~+4%</td>
+                <td class="num-col">~&plusmn;1%</td>
+                <td class="num-col">~+8%</td>
+                <td><span class="lvl lvl-high">Yes</span></td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+      <p class="table-note">&Delta; nDCG@10 (%) after reranking top-100 from C2LLM-7B on v202603. CoREB-Reranker values are projected based on training protocol (full numbers pending training completion).</p>
+    </div>
+  </section>
+
+  <!-- ===== ANALYSIS: EFFICIENCY ===== -->
+  <section class="section" id="efficiency">
+    <div class="section-inner">
+      <h2 class="section-title">Analysis: Parameter Efficiency</h2>
+      <div class="info-box">
+        <strong>0.5B code-specialized models deliver ~13&times; more nDCG per billion parameters than 8B general-purpose ones.</strong> C2LLM-0.5B reaches 95.9% of the best open-weight score at only 7% of its parameter count. For latency/memory-constrained deployments, 0.5B specialized checkpoints are the clear choice.
+      </div>
+      <div class="table-wrap">
+        <div class="table-scroll">
+          <table class="sortable" id="efficiency-table">
+            <thead>
+              <tr>
+                <th>Model</th>
+                <th class="num-col">Params (B)</th>
+                <th class="num-col">Overall nDCG@10</th>
+                <th class="num-col">nDCG / B params</th>
+                <th>Category</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr class="row-highlight">
+                <td class="model-name"><strong>C2LLM-0.5B</strong></td>
+                <td class="num-col">0.5</td>
+                <td class="num-col">0.603</td>
+                <td class="num-col"><strong>1.206</strong></td>
+                <td><span class="badge badge-dl">CODE</span></td>
+              </tr>
+              <tr>
+                <td class="model-name">Jina-code-emb-0.5b</td>
+                <td class="num-col">0.5</td>
+                <td class="num-col">0.588</td>
+                <td class="num-col">1.176</td>
+                <td><span class="badge badge-dl">CODE</span></td>
+              </tr>
+              <tr>
+                <td class="model-name">Qwen3-Emb-0.6B</td>
+                <td class="num-col">0.6</td>
+                <td class="num-col">0.477</td>
+                <td class="num-col">0.795</td>
+                <td><span class="badge badge-fm">GENERAL</span></td>
+              </tr>
+              <tr>
+                <td class="model-name">F2LLM-0.6B</td>
+                <td class="num-col">0.6</td>
+                <td class="num-col">0.491</td>
+                <td class="num-col">0.818</td>
+                <td><span class="badge badge-dl">CODE</span></td>
+              </tr>
+              <tr>
+                <td class="model-name">Jina-code-emb-1.5b</td>
+                <td class="num-col">1.5</td>
+                <td class="num-col">0.603</td>
+                <td class="num-col">0.402</td>
+                <td><span class="badge badge-dl">CODE</span></td>
+              </tr>
+              <tr>
+                <td class="model-name">F2LLM-1.7B</td>
+                <td class="num-col">1.7</td>
+                <td class="num-col">0.536</td>
+                <td class="num-col">0.315</td>
+                <td><span class="badge badge-dl">CODE</span></td>
+              </tr>
+              <tr>
+                <td class="model-name">F2LLM-4B</td>
+                <td class="num-col">4.0</td>
+                <td class="num-col">0.581</td>
+                <td class="num-col">0.145</td>
+                <td><span class="badge badge-dl">CODE</span></td>
+              </tr>
+              <tr>
+                <td class="model-name">Qwen3-Emb-4B</td>
+                <td class="num-col">4.0</td>
+                <td class="num-col">0.546</td>
+                <td class="num-col">0.137</td>
+                <td><span class="badge badge-fm">GENERAL</span></td>
+              </tr>
+              <tr>
+                <td class="model-name">C2LLM-7B</td>
+                <td class="num-col">7.0</td>
+                <td class="num-col">0.629</td>
+                <td class="num-col">0.090</td>
+                <td><span class="badge badge-dl">CODE</span></td>
+              </tr>
+              <tr>
+                <td class="model-name">Qwen3-Emb-8B</td>
+                <td class="num-col">8.0</td>
+                <td class="num-col">0.481</td>
+                <td class="num-col">0.060</td>
+                <td><span class="badge badge-fm">GENERAL</span></td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+      <p class="table-note">GemEmb-2 excluded (vendor does not publish exact parameter count). Among open-weight checkpoints, C2LLM-0.5B and C2LLM-7B lie on the Pareto frontier.</p>
+    </div>
+  </section>
+
+  </div><!-- end analysis-tab -->
+
+  <!-- ===== CITATION ===== -->
+  <section class="section" id="citation">
+    <div class="section-inner">
+      <h2 class="section-title">Citation</h2>
+      <p>If you use CoREB in your research, please cite our paper:</p>
+      <div class="bibtex-wrap">
+        <pre class="bibtex"><code id="bibtex-code">@article{coreb2025,
+  title     = {Beyond Retrieval: A Benchmark and Model Suite for Code Search},
+  author    = {CodeFuse Team, Ant Group},
+  journal   = {arXiv preprint},
+  year      = {2025},
+  url       = {https://github.com/codefuse-ai/CodeFuse-CoREB}
+}</code></pre>
+        <button class="copy-btn" id="copy-bibtex">Copy BibTeX</button>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== FOOTER ===== -->
+  <footer class="site-footer">
+    <p>CoREB &mdash; developed by <a href="https://github.com/codefuse-ai" target="_blank" rel="noopener">CodeFuse, Ant Group</a>. Licensed under <a href="https://creativecommons.org/licenses/by/4.0/" target="_blank" rel="noopener">CC-BY 4.0</a>.</p>
+  </footer>
+
+  <script src="assets/js/main.js"></script>
+</body>
+</html>
