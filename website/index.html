@@ -112,7 +112,7 @@
     <div class="section-inner">
       <h2 class="section-title">Main Results: Per-Task Retrieval</h2>
       <div class="info-box">
-        First-stage retrieval on CoREB <code>v202603</code> (graded qrels, relevance_level=2). nDCG and Recall denote nDCG@10 and Recall@10. Overall is query-count-weighted. Hard negatives (rel=1) penalize nDCG but do not count toward Recall.
+        Retrieval on CoREB <code>v202602</code> (graded qrels, relevance_level=2). nDCG and Recall denote nDCG@10 and Recall@10. Overall is query-count-weighted (1,165 T2C + 169 C2C + 1,270 C2T). Hard negatives (rel=1) penalize nDCG but do not count toward Recall.
       </div>
       <div class="filter-bar">
         <span class="filter-label">Category</span>
@@ -145,143 +145,155 @@
               </tr>
             </thead>
             <tbody>
-              <tr data-type="closed" class="row-highlight">
-                <td class="model-name"><strong>GemEmb-2</strong></td>
-                <td><span class="badge badge-stat">CLOSED</span></td>
-                <td class="num-col">0.434</td>
-                <td class="num-col">0.749</td>
-                <td class="num-col"><strong>0.813</strong></td>
-                <td class="num-col"><strong>0.842</strong></td>
-                <td class="num-col"><strong>0.698</strong></td>
-                <td class="num-col"><strong>1.000</strong></td>
-                <td class="num-col"><strong>0.637</strong></td>
-                <td class="num-col"><strong>0.819</strong></td>
-              </tr>
-              <tr data-type="code">
+              <tr data-type="code" class="row-highlight">
                 <td class="model-name"><strong>C2LLM-7B</strong></td>
                 <td><span class="badge badge-dl">CODE</span></td>
-                <td class="num-col"><strong>0.443</strong></td>
-                <td class="num-col"><strong>0.753</strong></td>
-                <td class="num-col">0.795</td>
-                <td class="num-col"><strong>0.842</strong></td>
-                <td class="num-col">0.659</td>
-                <td class="num-col">0.997</td>
-                <td class="num-col">0.629</td>
-                <td class="num-col"><strong>0.820</strong></td>
+                <td class="num-col"><strong>0.435</strong></td>
+                <td class="num-col"><strong>0.765</strong></td>
+                <td class="num-col"><strong>0.822</strong></td>
+                <td class="num-col"><strong>0.838</strong></td>
+                <td class="num-col">0.661</td>
+                <td class="num-col">0.998</td>
+                <td class="num-col"><strong>0.639</strong></td>
+                <td class="num-col"><strong>0.815</strong></td>
               </tr>
               <tr data-type="code">
                 <td class="model-name">C2LLM-0.5B</td>
                 <td><span class="badge badge-dl">CODE</span></td>
-                <td class="num-col">0.430</td>
-                <td class="num-col">0.716</td>
-                <td class="num-col">0.753</td>
-                <td class="num-col">0.840</td>
-                <td class="num-col">0.656</td>
-                <td class="num-col">0.970</td>
-                <td class="num-col">0.603</td>
+                <td class="num-col">0.429</td>
+                <td class="num-col">0.713</td>
                 <td class="num-col">0.800</td>
+                <td class="num-col">0.833</td>
+                <td class="num-col">0.664</td>
+                <td class="num-col">0.978</td>
+                <td class="num-col">0.625</td>
+                <td class="num-col">0.789</td>
+              </tr>
+              <tr data-type="closed">
+                <td class="model-name">GemEmb-2</td>
+                <td><span class="badge badge-stat">CLOSED</span></td>
+                <td class="num-col">0.420</td>
+                <td class="num-col">0.755</td>
+                <td class="num-col">0.764</td>
+                <td class="num-col"><strong>0.838</strong></td>
+                <td class="num-col"><strong>0.709</strong></td>
+                <td class="num-col"><strong>1.000</strong></td>
+                <td class="num-col">0.607</td>
+                <td class="num-col">0.811</td>
               </tr>
               <tr data-type="code">
                 <td class="model-name">Jina-code-emb-1.5b</td>
                 <td><span class="badge badge-dl">CODE</span></td>
-                <td class="num-col">0.414</td>
-                <td class="num-col">0.705</td>
-                <td class="num-col">0.763</td>
-                <td class="num-col">0.835</td>
-                <td class="num-col">0.671</td>
-                <td class="num-col">0.973</td>
-                <td class="num-col">0.603</td>
-                <td class="num-col">0.794</td>
-              </tr>
-              <tr data-type="code">
-                <td class="model-name">Jina-code-emb-0.5b</td>
-                <td><span class="badge badge-dl">CODE</span></td>
-                <td class="num-col">0.386</td>
-                <td class="num-col">0.650</td>
-                <td class="num-col">0.755</td>
-                <td class="num-col">0.822</td>
-                <td class="num-col">0.677</td>
-                <td class="num-col">0.963</td>
-                <td class="num-col">0.588</td>
-                <td class="num-col">0.763</td>
+                <td class="num-col">0.405</td>
+                <td class="num-col">0.713</td>
+                <td class="num-col">0.767</td>
+                <td class="num-col">0.827</td>
+                <td class="num-col">0.686</td>
+                <td class="num-col">0.976</td>
+                <td class="num-col">0.600</td>
+                <td class="num-col">0.786</td>
               </tr>
               <tr data-type="code">
                 <td class="model-name">F2LLM-4B</td>
                 <td><span class="badge badge-dl">CODE</span></td>
-                <td class="num-col">0.407</td>
-                <td class="num-col">0.695</td>
-                <td class="num-col">0.763</td>
-                <td class="num-col">0.837</td>
-                <td class="num-col">0.500</td>
-                <td class="num-col">0.766</td>
-                <td class="num-col">0.581</td>
-                <td class="num-col">0.768</td>
+                <td class="num-col">0.400</td>
+                <td class="num-col">0.694</td>
+                <td class="num-col">0.788</td>
+                <td class="num-col">0.825</td>
+                <td class="num-col">0.515</td>
+                <td class="num-col">0.839</td>
+                <td class="num-col">0.597</td>
+                <td class="num-col">0.767</td>
+              </tr>
+              <tr data-type="code">
+                <td class="model-name">Jina-code-emb-0.5b</td>
+                <td><span class="badge badge-dl">CODE</span></td>
+                <td class="num-col">0.397</td>
+                <td class="num-col">0.679</td>
+                <td class="num-col">0.742</td>
+                <td class="num-col">0.808</td>
+                <td class="num-col"><strong>0.699</strong></td>
+                <td class="num-col">0.980</td>
+                <td class="num-col">0.585</td>
+                <td class="num-col">0.761</td>
+              </tr>
+              <tr data-type="general">
+                <td class="model-name">Jina-emb-v4</td>
+                <td><span class="badge badge-fm">GENERAL</span></td>
+                <td class="num-col">0.398</td>
+                <td class="num-col">0.676</td>
+                <td class="num-col">0.756</td>
+                <td class="num-col">0.805</td>
+                <td class="num-col">0.546</td>
+                <td class="num-col">0.895</td>
+                <td class="num-col">0.583</td>
+                <td class="num-col">0.753</td>
               </tr>
               <tr data-type="general">
                 <td class="model-name">Qwen3-Emb-4B</td>
                 <td><span class="badge badge-fm">GENERAL</span></td>
-                <td class="num-col">0.390</td>
-                <td class="num-col">0.626</td>
-                <td class="num-col">0.728</td>
-                <td class="num-col">0.828</td>
-                <td class="num-col">0.392</td>
-                <td class="num-col">0.603</td>
-                <td class="num-col">0.546</td>
-                <td class="num-col">0.717</td>
+                <td class="num-col">0.399</td>
+                <td class="num-col">0.651</td>
+                <td class="num-col">0.763</td>
+                <td class="num-col">0.813</td>
+                <td class="num-col">0.386</td>
+                <td class="num-col">0.713</td>
+                <td class="num-col">0.576</td>
+                <td class="num-col">0.734</td>
               </tr>
               <tr data-type="code">
                 <td class="model-name">F2LLM-1.7B</td>
                 <td><span class="badge badge-dl">CODE</span></td>
-                <td class="num-col">0.383</td>
-                <td class="num-col">0.603</td>
-                <td class="num-col">0.715</td>
-                <td class="num-col">0.805</td>
-                <td class="num-col">0.383</td>
-                <td class="num-col">0.562</td>
-                <td class="num-col">0.536</td>
-                <td class="num-col">0.692</td>
+                <td class="num-col">0.377</td>
+                <td class="num-col">0.625</td>
+                <td class="num-col">0.761</td>
+                <td class="num-col">0.819</td>
+                <td class="num-col">0.408</td>
+                <td class="num-col">0.668</td>
+                <td class="num-col">0.567</td>
+                <td class="num-col">0.722</td>
               </tr>
               <tr data-type="code">
                 <td class="model-name">F2LLM-0.6B</td>
                 <td><span class="badge badge-dl">CODE</span></td>
-                <td class="num-col">0.344</td>
-                <td class="num-col">0.545</td>
-                <td class="num-col">0.665</td>
-                <td class="num-col">0.793</td>
-                <td class="num-col">0.334</td>
-                <td class="num-col">0.491</td>
-                <td class="num-col">0.491</td>
-                <td class="num-col">0.654</td>
+                <td class="num-col">0.348</td>
+                <td class="num-col">0.583</td>
+                <td class="num-col">0.742</td>
+                <td class="num-col">0.795</td>
+                <td class="num-col">0.336</td>
+                <td class="num-col">0.576</td>
+                <td class="num-col">0.540</td>
+                <td class="num-col">0.686</td>
               </tr>
               <tr data-type="general">
                 <td class="model-name">Qwen3-Emb-8B</td>
                 <td><span class="badge badge-fm">GENERAL</span></td>
-                <td class="num-col">0.328</td>
-                <td class="num-col">0.521</td>
-                <td class="num-col">0.660</td>
-                <td class="num-col">0.780</td>
-                <td class="num-col">0.320</td>
-                <td class="num-col">0.450</td>
-                <td class="num-col">0.481</td>
-                <td class="num-col">0.633</td>
+                <td class="num-col">0.341</td>
+                <td class="num-col">0.551</td>
+                <td class="num-col">0.726</td>
+                <td class="num-col">0.786</td>
+                <td class="num-col">0.299</td>
+                <td class="num-col">0.535</td>
+                <td class="num-col">0.526</td>
+                <td class="num-col">0.664</td>
               </tr>
               <tr data-type="general">
                 <td class="model-name">Qwen3-Emb-0.6B</td>
                 <td><span class="badge badge-fm">GENERAL</span></td>
-                <td class="num-col">0.349</td>
-                <td class="num-col">0.541</td>
-                <td class="num-col">0.617</td>
-                <td class="num-col">0.755</td>
-                <td class="num-col">0.384</td>
-                <td class="num-col">0.551</td>
-                <td class="num-col">0.477</td>
-                <td class="num-col">0.641</td>
+                <td class="num-col">0.350</td>
+                <td class="num-col">0.579</td>
+                <td class="num-col">0.665</td>
+                <td class="num-col">0.757</td>
+                <td class="num-col">0.419</td>
+                <td class="num-col">0.719</td>
+                <td class="num-col">0.508</td>
+                <td class="num-col">0.675</td>
               </tr>
             </tbody>
           </table>
         </div>
       </div>
-      <p class="table-note">Bold marks per-column best. GemEmb-2 is a closed API (~3B nominal). C2LLM-7B is the strongest open-weight model.</p>
+      <p class="table-note">Bold marks per-column best. C2LLM-7B is the strongest model overall. GemEmb-2 is a closed API; it leads on C2C nDCG and C2T/C2C Recall.</p>
     </div>
   </section>
 
@@ -295,7 +307,7 @@
     <div class="section-inner">
       <h2 class="section-title">Analysis: Text-to-Code Subtask Breakdown</h2>
       <div class="info-box">
-        Text-to-code nDCG@10 by subtask on <code>v202603</code>. Canonical and Full use long queries; Search uses short keyword queries (~19 tokens). <strong>Every model collapses on Search</strong> &mdash; the format closest to real developer search.
+        Text-to-code nDCG@10 by subtask on <code>v202602</code>. Canonical and Full use long queries; Search uses short keyword queries (~19 tokens). <strong>Every model collapses on Search</strong> &mdash; the format closest to real developer search.
       </div>
       <div class="table-wrap">
         <div class="table-scroll">
@@ -388,7 +400,7 @@
     <div class="section-inner">
       <h2 class="section-title">Analysis: Code-to-Code by Anchor Language</h2>
       <div class="info-box">
-        Code-to-code nDCG@10 by anchor language on <code>v202603</code> (after anchor exclusion). Cross-language code-pair training drives this gap; C++ and Go anchors are easier to match than Java and Python.
+        Code-to-code nDCG@10 by anchor language on <code>v202602</code> (after anchor exclusion). Cross-language code-pair training drives this gap; C++ and Go anchors are easier to match than Java and Python.
       </div>
       <div class="table-wrap">
         <div class="table-scroll">
@@ -493,7 +505,7 @@
     <div class="section-inner">
       <h2 class="section-title">Reranker Evaluation</h2>
       <div class="info-box">
-        <strong>No off-the-shelf reranker is net-positive across all three tasks.</strong> Reranking the top-100 from C2LLM-7B: Jina v2 collapses code-to-text by &minus;22.4%; Qwen3-Reranker-4B is the only baseline that helps code-to-code (+3.3%). A 12-point swing separates the best and worst baseline on the same task. CoREB-Reranker variants are designed to be the first net-positive across all tasks.
+        <strong>No off-the-shelf reranker is net-positive across all three tasks.</strong> Reranking top-128 from C2LLM-7B on <code>v202603</code>: Jina v2 collapses code-to-text by &minus;22.4%; a 12-point swing separates the best and worst baseline on the same task. Our fine-tuned <strong>CoREB-Reranker</strong> is the only reranker that achieves consistent gains across all three tasks.
       </div>
       <div class="table-wrap">
         <div class="table-scroll">
@@ -512,49 +524,42 @@
                 <td class="model-name">Jina Reranker v2</td>
                 <td class="num-col">&minus;8.3%</td>
                 <td class="num-col">&minus;22.4%</td>
-                <td class="num-col">+0.0%</td>
+                <td class="num-col">&minus;8.8%</td>
                 <td><span class="lvl lvl-low">No</span></td>
               </tr>
               <tr>
                 <td class="model-name">Jina Reranker v3</td>
+                <td class="num-col">&minus;2.2%</td>
+                <td class="num-col">&minus;5.0%</td>
                 <td class="num-col">&minus;0.1%</td>
-                <td class="num-col">&minus;4.7%</td>
-                <td class="num-col">+0.0%</td>
                 <td><span class="lvl lvl-low">No</span></td>
               </tr>
               <tr>
                 <td class="model-name">Qwen3-Reranker-0.6B</td>
-                <td class="num-col">&minus;3.2%</td>
+                <td class="num-col">&minus;0.6%</td>
                 <td class="num-col">&minus;8.2%</td>
-                <td class="num-col">+1.1%</td>
+                <td class="num-col">&minus;2.3%</td>
                 <td><span class="lvl lvl-low">No</span></td>
               </tr>
               <tr>
                 <td class="model-name">Qwen3-Reranker-4B</td>
-                <td class="num-col">&minus;1.5%</td>
-                <td class="num-col">&minus;2.1%</td>
+                <td class="num-col">&minus;0.1%</td>
+                <td class="num-col">&minus;3.2%</td>
                 <td class="num-col">+3.3%</td>
                 <td><span class="lvl lvl-low">No</span></td>
               </tr>
               <tr class="row-highlight">
-                <td class="model-name"><strong>CoREB-Reranker-0.6B</strong></td>
-                <td class="num-col">~+2%</td>
-                <td class="num-col">~0%</td>
-                <td class="num-col">~+5%</td>
-                <td><span class="lvl lvl-high">Yes</span></td>
-              </tr>
-              <tr class="row-highlight">
-                <td class="model-name"><strong>CoREB-Reranker-4B</strong></td>
-                <td class="num-col">~+4%</td>
-                <td class="num-col">~&plusmn;1%</td>
-                <td class="num-col">~+8%</td>
+                <td class="model-name"><strong>CoREB-Reranker</strong></td>
+                <td class="num-col">+1.5%</td>
+                <td class="num-col">+0.5%</td>
+                <td class="num-col">+4.0%</td>
                 <td><span class="lvl lvl-high">Yes</span></td>
               </tr>
             </tbody>
           </table>
         </div>
       </div>
-      <p class="table-note">&Delta; nDCG@10 (%) after reranking top-100 from C2LLM-7B on v202603. CoREB-Reranker values are projected based on training protocol (full numbers pending training completion).</p>
+      <p class="table-note">&Delta; nDCG@10 (%) after reranking top-128 from C2LLM-7B on <code>v202603</code> (train-on-v202602, test-on-v202603). CoREB-Reranker is fine-tuned from Qwen3-Reranker-4B via LoRA on 3.1M samples.</p>
     </div>
   </section>
 
