@@ -78,17 +78,17 @@
     <div class="section-inner">
       <h2 class="section-title">About CoREB</h2>
       <p>
-        Code search has usually been evaluated as first-stage retrieval, even though production systems rely on broader pipelines with reranking and developer-style queries. Existing benchmarks suffer from data contamination, label noise, and degenerate binary relevance.
+        Code search now underpins not only developer-facing tools but also modern AI coding agents (e.g., SWE-agent, OpenHands, Cursor). Yet existing benchmarks evaluate only the embedding stage, ignoring the reranker and developer-style queries that production pipelines actually use, and additionally suffer from data contamination, label noise, and degenerate binary relevance.
       </p>
       <p>
-        <strong>CoREB</strong> is a contamination-limited, multitask <strong>Co</strong>de <strong>R</strong>etrieval and R<strong>e</strong>ranking <strong>B</strong>enchmark, together with a suite of fine-tuned code rerankers, that goes beyond retrieval to cover the full code search pipeline. It is built from counterfactually rewritten LiveCodeBench problems in five programming languages and delivered as timed releases (<strong>5,087 queries</strong> over <strong>342 problems</strong>) with graded relevance judgments.
+        <strong>CoREB</strong> is a contamination-limited, multitask <strong>Co</strong>de <strong>R</strong>etrieval and R<strong>e</strong>ranking <strong>B</strong>enchmark, together with a fine-tuned code reranker, that goes beyond retrieval to cover the full code search pipeline. It is built from counterfactually rewritten LiveCodeBench problems in five programming languages and delivered as timed releases with graded relevance judgments. We benchmark eleven embedding models and five rerankers across three tasks: text-to-code, code-to-text, and code-to-code.
       </p>
       <p>Key findings:</p>
       <ul class="findings-list">
         <li>Code-specialised embeddings dominate code-to-code retrieval (<strong>~2&times;</strong> over general encoders), yet no single model wins all three tasks</li>
         <li>Short keyword queries (the format closest to real developer search) collapse every model to <strong>near-zero nDCG@10</strong></li>
         <li>Off-the-shelf rerankers are task-asymmetric, with a <strong>12-point swing</strong> on code-to-code and no baseline net-positive across all tasks</li>
-        <li>Fine-tuned <strong>CoREB rerankers</strong> are the first to achieve consistent gains across all three tasks</li>
+        <li>Fine-tuned <strong>CoREB-Reranker</strong> is the only reranker that achieves consistent gains across all three tasks</li>
       </ul>
     </div>
   </section>
