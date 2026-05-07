@@ -85,6 +85,21 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   }
 
+  // ===== MORE RESEARCH DROPDOWN =====
+  const moreToggle = document.getElementById('more-research-toggle');
+  const moreWrap = moreToggle?.closest('.more-research-wrap');
+  if (moreToggle && moreWrap) {
+    moreToggle.addEventListener('click', (e) => {
+      e.stopPropagation();
+      moreWrap.classList.toggle('open');
+    });
+    document.addEventListener('click', (e) => {
+      if (!moreWrap.contains(e.target)) {
+        moreWrap.classList.remove('open');
+      }
+    });
+  }
+
   // ===== MOBILE NAV =====
   const menuToggle = document.querySelector('.menu-toggle');
   const navLinks = document.querySelector('.nav-links');

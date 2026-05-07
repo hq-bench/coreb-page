@@ -104,12 +104,15 @@ a:hover { color: var(--ember); border-bottom-color: var(--ember); text-decoratio
   color: var(--ink);
   letter-spacing: -0.01em;
   border: none;
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
 }
 .brand:hover { color: var(--scarlet); text-decoration: none; border: none; }
-.brand-alipay {
-  color: var(--scarlet);
-  font-style: italic;
-  margin-right: 0.2rem;
+.brand-icon {
+  height: 24px;
+  width: auto;
+  vertical-align: middle;
 }
 
 .nav-links {
@@ -143,6 +146,88 @@ a:hover { color: var(--ember); border-bottom-color: var(--ember); text-decoratio
   background: var(--scarlet);
   text-decoration: none;
   border: none;
+}
+
+/* ===== MORE RESEARCH DROPDOWN ===== */
+.more-research-wrap {
+  position: relative;
+}
+
+.nav-more-btn {
+  color: var(--scarlet);
+  font-family: var(--font-mono);
+  font-size: 0.62rem;
+  font-weight: 600;
+  padding: 0.38rem 0.6rem;
+  border-radius: 3px;
+  border: 1px solid rgba(140, 36, 22, 0.25);
+  background: rgba(140, 36, 22, 0.04);
+  cursor: pointer;
+  text-transform: uppercase;
+  letter-spacing: 0.15em;
+  transition: all 0.13s var(--ease);
+}
+
+.nav-more-btn:hover {
+  background: rgba(140, 36, 22, 0.1);
+  border-color: var(--scarlet);
+}
+
+.more-arrow {
+  font-size: 0.5rem;
+  margin-left: 0.15rem;
+  transition: transform 0.2s var(--ease);
+  display: inline-block;
+}
+
+.more-research-wrap.open .more-arrow {
+  transform: rotate(180deg);
+}
+
+.more-research-dropdown {
+  display: none;
+  position: absolute;
+  top: calc(100% + 0.4rem);
+  right: 0;
+  min-width: 160px;
+  background: rgba(250, 246, 238, 0.97);
+  backdrop-filter: blur(14px);
+  border: 1px solid var(--border);
+  border-radius: 4px;
+  box-shadow: 0 8px 24px rgba(24, 16, 10, 0.12);
+  list-style: none;
+  padding: 0.3rem 0;
+  z-index: 600;
+}
+
+.more-research-wrap.open .more-research-dropdown {
+  display: block;
+  animation: fadeUp 0.2s var(--ease);
+}
+
+.more-research-dropdown li a {
+  display: block;
+  padding: 0.55rem 1rem;
+  font-family: var(--font-mono);
+  font-size: 0.68rem;
+  font-weight: 500;
+  color: var(--ink2);
+  border: none;
+  border-bottom: 1px solid var(--border2);
+  letter-spacing: 0.05em;
+  transition: all 0.1s var(--ease);
+}
+
+.more-research-dropdown li:last-child a {
+  border-bottom: none;
+}
+
+.more-research-dropdown li a:hover {
+  color: var(--scarlet);
+  background: rgba(140, 36, 22, 0.04);
+  border: none;
+  border-bottom: 1px solid var(--border2);
+  text-decoration: none;
 }
 
 .menu-toggle {
@@ -234,12 +319,26 @@ a:hover { color: var(--ember); border-bottom-color: var(--ember); text-decoratio
   -webkit-text-stroke: 2px var(--scarlet);
 }
 
+.hero-subtitle {
+  font-family: var(--font-head);
+  font-size: clamp(1rem, 2.5vw, 1.4rem);
+  font-weight: 400;
+  color: var(--ink2);
+  margin-bottom: 1rem;
+  letter-spacing: -0.01em;
+}
+
 .hero-authors {
   font-size: 0.82rem;
   color: var(--ink2);
   line-height: 1.7;
   margin-bottom: 0.4rem;
   letter-spacing: 0.01em;
+}
+
+.hero-authors sup {
+  color: var(--scarlet);
+  font-weight: 600;
 }
 
 .hero-institution {

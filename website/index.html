@@ -16,7 +16,7 @@
   <!-- ===== NAV ===== -->
   <header class="site-header">
     <div class="header-inner">
-      <a href="#" class="brand"><span class="brand-alipay">CodeFuse</span> CoREB</a>
+      <a href="#" class="brand"><img src="https://gw.alipayobjects.com/mdn/rms_baa6fa/afts/img/A*0JGyTrgVRowAAAAAAAAAAAAAARQnAQ" alt="Alipay" class="brand-icon"> CoREB</a>
       <button class="menu-toggle" aria-label="Toggle menu">&#9776;</button>
       <nav>
         <ul class="nav-links">
@@ -27,6 +27,13 @@
           <li><a href="#reranker">Reranker</a></li>
           <li><a href="#efficiency">Efficiency</a></li>
           <li><a href="#citation">Cite</a></li>
+          <li class="more-research-wrap">
+            <button class="nav-more-btn" id="more-research-toggle">More Research <span class="more-arrow">&#9662;</span></button>
+            <ul class="more-research-dropdown" id="more-research-dropdown">
+              <li><a href="https://hq-bench.github.io/quito/" target="_blank" rel="noopener">QuitoBench</a></li>
+              <li><a href="https://famma-bench.github.io/famma/" target="_blank" rel="noopener">FAMMA</a></li>
+            </ul>
+          </li>
         </ul>
       </nav>
     </div>
@@ -35,18 +42,23 @@
   <!-- ===== HERO ===== -->
   <section class="hero" id="hero">
     <div class="hero-inner">
-      <span class="eyebrow">Beyond Retrieval: A Benchmark and Model Suite for Code Search</span>
+      <span class="eyebrow">Beyond Retrieval</span>
       <h1><span class="solid">Co</span><span class="outline">REB</span></h1>
+      <p class="hero-subtitle">A Multitask Benchmark and Model for Code Search</p>
       <p class="hero-authors">
-        CodeFuse Team, Ant Group
+        Siqiao Xue<sup>*</sup>, Zihan Liao<sup>*</sup>, Jin Qin, Ziyin Zhang, Yixiang Mu, Fan Zhou, Hang Yu
       </p>
       <p class="hero-institution">
-        A contamination-limited, multitask code retrieval and reranking benchmark
+        <sup>*</sup> Equal contribution
       </p>
+      <div class="visitor-badge">
+        <img src="https://hits.sh/hq-bench.github.io/coreb-page.svg?view=total&style=flat&label=Visitors&color=f59e0b&labelColor=0d1117" alt="Visitor count">
+      </div>
       <div class="hero-actions">
-        <a href="#" class="btn-cta" title="Paper (coming soon)">Read Paper</a>
-        <a href="https://github.com/codefuse-ai/CodeFuse-CoREB" class="btn-ghost" target="_blank" rel="noopener">GitHub</a>
-        <a href="https://huggingface.co/datasets/codefuse-ai/CoREB" class="btn-ghost" target="_blank" rel="noopener">Dataset</a>
+        <a href="https://arxiv.org/abs/2605.04615" class="btn-cta" target="_blank" rel="noopener">Read Paper</a>
+        <a href="https://github.com/hq-bench/coreb" class="btn-ghost" target="_blank" rel="noopener">Code</a>
+        <a href="https://huggingface.co/hq-bench/coreb-code-reranker" class="btn-ghost" target="_blank" rel="noopener">Model</a>
+        <a href="https://huggingface.co/datasets/hq-bench/coreb" class="btn-ghost" target="_blank" rel="noopener">Dataset</a>
       </div>
     </div>
   </section>
@@ -633,18 +645,46 @@
 
   </div><!-- end analysis-tab -->
 
+  <!-- ===== VISITOR MAP ===== -->
+  <section class="section" id="visitor-map">
+    <div class="section-inner visitor-map-center">
+      <h2 class="section-title">Visitor Map</h2>
+      <div class="visitor-badge" style="margin-bottom: 1rem;">
+        <img src="https://hits.sh/hq-bench.github.io/coreb-page.svg?view=total&color=f59e0b&labelColor=0d1117&label=Total%20Visitors&style=flat" alt="Visitor count" height="24">
+      </div>
+      <div class="globe-container">
+        <script type="text/javascript" id="clstr_globe"
+          src="//clustrmaps.com/globe.js?d=1c9gf"></script>
+        <noscript>
+          <div class="globe-placeholder">
+            <svg viewBox="0 0 200 200" width="260" height="260">
+              <defs>
+                <radialGradient id="g1" cx="40%" cy="35%" r="60%">
+                  <stop offset="0%" stop-color="#ede3cf"/>
+                  <stop offset="100%" stop-color="#e2d8c4"/>
+                </radialGradient>
+              </defs>
+              <circle cx="100" cy="100" r="95" fill="url(#g1)" stroke="#8c2416" stroke-width="0.5" opacity="0.5"/>
+              <text x="100" y="105" text-anchor="middle" fill="#907050" font-size="11" font-family="IBM Plex Mono, monospace">Globe loads with JS</text>
+            </svg>
+          </div>
+        </noscript>
+      </div>
+    </div>
+  </section>
+
   <!-- ===== CITATION ===== -->
   <section class="section" id="citation">
     <div class="section-inner">
       <h2 class="section-title">Citation</h2>
       <p>If you use CoREB in your research, please cite our paper:</p>
       <div class="bibtex-wrap">
-        <pre class="bibtex"><code id="bibtex-code">@article{coreb2025,
-  title     = {Beyond Retrieval: A Benchmark and Model Suite for Code Search},
-  author    = {CodeFuse Team, Ant Group},
-  journal   = {arXiv preprint},
+        <pre class="bibtex"><code id="bibtex-code">@article{xue2025coreb,
+  title     = {Beyond Retrieval: A Multitask Benchmark and Model for Code Search},
+  author    = {Xue, Siqiao and Liao, Zihan and Qin, Jin and Zhang, Ziyin and Mu, Yixiang and Zhou, Fan and Yu, Hang},
+  journal   = {arXiv preprint arXiv:2605.04615},
   year      = {2025},
-  url       = {https://github.com/codefuse-ai/CodeFuse-CoREB}
+  url       = {https://arxiv.org/abs/2605.04615}
 }</code></pre>
         <button class="copy-btn" id="copy-bibtex">Copy BibTeX</button>
       </div>
@@ -653,7 +693,7 @@
 
   <!-- ===== FOOTER ===== -->
   <footer class="site-footer">
-    <p>CoREB &mdash; developed by <a href="https://github.com/codefuse-ai" target="_blank" rel="noopener">CodeFuse, Ant Group</a>. Licensed under <a href="https://creativecommons.org/licenses/by/4.0/" target="_blank" rel="noopener">CC-BY 4.0</a>.</p>
+    <p>CoREB &mdash; developed by <a href="https://github.com/hq-bench" target="_blank" rel="noopener">HQ-Bench</a>. Licensed under <a href="https://creativecommons.org/licenses/by/4.0/" target="_blank" rel="noopener">CC-BY 4.0</a>.</p>
   </footer>
 
   <script src="assets/js/main.js"></script>
