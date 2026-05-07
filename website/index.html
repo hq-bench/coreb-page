@@ -99,8 +99,13 @@
   <section class="section" id="leaderboard">
     <div class="section-inner">
       <h2 class="section-title">Main Results: Per-Task Retrieval</h2>
-      <div class="info-box">
-        Retrieval on CoREB <code>v202602</code> (graded qrels, relevance_level=2). nDCG and Recall denote nDCG@10 and Recall@10. Overall is query-count-weighted (1,165 T2C + 169 C2C + 1,270 C2T). Hard negatives (rel=1) penalize nDCG but do not count toward Recall.
+      <div class="info-box" id="leaderboard-info">
+        Retrieval on CoREB <code>v202602</code> (graded qrels, relevance_level=2). nDCG and Recall denote nDCG@10 and Recall@10. Overall is query-count-weighted. Hard negatives (rel=1) penalize nDCG but do not count toward Recall.
+      </div>
+      <div class="filter-bar">
+        <span class="filter-label">Release</span>
+        <button class="filter-btn active" data-version="v202602">v202602</button>
+        <button class="filter-btn" data-version="v202603">v202603</button>
       </div>
       <div class="filter-bar">
         <span class="filter-label">Category</span>
@@ -133,150 +138,31 @@
               </tr>
             </thead>
             <tbody>
-              <tr data-type="code" class="row-highlight">
-                <td class="model-name"><strong>C2LLM-7B</strong></td>
-                <td><span class="badge badge-dl">CODE</span></td>
-                <td class="num-col"><strong>0.435</strong></td>
-                <td class="num-col"><strong>0.765</strong></td>
-                <td class="num-col"><strong>0.822</strong></td>
-                <td class="num-col"><strong>0.838</strong></td>
-                <td class="num-col">0.661</td>
-                <td class="num-col">0.998</td>
-                <td class="num-col"><strong>0.639</strong></td>
-                <td class="num-col"><strong>0.815</strong></td>
-              </tr>
-              <tr data-type="code">
-                <td class="model-name">C2LLM-0.5B</td>
-                <td><span class="badge badge-dl">CODE</span></td>
-                <td class="num-col">0.429</td>
-                <td class="num-col">0.713</td>
-                <td class="num-col">0.800</td>
-                <td class="num-col">0.833</td>
-                <td class="num-col">0.664</td>
-                <td class="num-col">0.978</td>
-                <td class="num-col">0.625</td>
-                <td class="num-col">0.789</td>
-              </tr>
-              <tr data-type="closed">
-                <td class="model-name">GemEmb-2</td>
-                <td><span class="badge badge-stat">CLOSED</span></td>
-                <td class="num-col">0.420</td>
-                <td class="num-col">0.755</td>
-                <td class="num-col">0.764</td>
-                <td class="num-col"><strong>0.838</strong></td>
-                <td class="num-col"><strong>0.709</strong></td>
-                <td class="num-col"><strong>1.000</strong></td>
-                <td class="num-col">0.607</td>
-                <td class="num-col">0.811</td>
-              </tr>
-              <tr data-type="code">
-                <td class="model-name">Jina-code-emb-1.5b</td>
-                <td><span class="badge badge-dl">CODE</span></td>
-                <td class="num-col">0.405</td>
-                <td class="num-col">0.713</td>
-                <td class="num-col">0.767</td>
-                <td class="num-col">0.827</td>
-                <td class="num-col">0.686</td>
-                <td class="num-col">0.976</td>
-                <td class="num-col">0.600</td>
-                <td class="num-col">0.786</td>
-              </tr>
-              <tr data-type="code">
-                <td class="model-name">F2LLM-4B</td>
-                <td><span class="badge badge-dl">CODE</span></td>
-                <td class="num-col">0.400</td>
-                <td class="num-col">0.694</td>
-                <td class="num-col">0.788</td>
-                <td class="num-col">0.825</td>
-                <td class="num-col">0.515</td>
-                <td class="num-col">0.839</td>
-                <td class="num-col">0.597</td>
-                <td class="num-col">0.767</td>
-              </tr>
-              <tr data-type="code">
-                <td class="model-name">Jina-code-emb-0.5b</td>
-                <td><span class="badge badge-dl">CODE</span></td>
-                <td class="num-col">0.397</td>
-                <td class="num-col">0.679</td>
-                <td class="num-col">0.742</td>
-                <td class="num-col">0.808</td>
-                <td class="num-col"><strong>0.699</strong></td>
-                <td class="num-col">0.980</td>
-                <td class="num-col">0.585</td>
-                <td class="num-col">0.761</td>
-              </tr>
-              <tr data-type="general">
-                <td class="model-name">Jina-emb-v4</td>
-                <td><span class="badge badge-fm">GENERAL</span></td>
-                <td class="num-col">0.398</td>
-                <td class="num-col">0.676</td>
-                <td class="num-col">0.756</td>
-                <td class="num-col">0.805</td>
-                <td class="num-col">0.546</td>
-                <td class="num-col">0.895</td>
-                <td class="num-col">0.583</td>
-                <td class="num-col">0.753</td>
-              </tr>
-              <tr data-type="general">
-                <td class="model-name">Qwen3-Emb-4B</td>
-                <td><span class="badge badge-fm">GENERAL</span></td>
-                <td class="num-col">0.399</td>
-                <td class="num-col">0.651</td>
-                <td class="num-col">0.763</td>
-                <td class="num-col">0.813</td>
-                <td class="num-col">0.386</td>
-                <td class="num-col">0.713</td>
-                <td class="num-col">0.576</td>
-                <td class="num-col">0.734</td>
-              </tr>
-              <tr data-type="code">
-                <td class="model-name">F2LLM-1.7B</td>
-                <td><span class="badge badge-dl">CODE</span></td>
-                <td class="num-col">0.377</td>
-                <td class="num-col">0.625</td>
-                <td class="num-col">0.761</td>
-                <td class="num-col">0.819</td>
-                <td class="num-col">0.408</td>
-                <td class="num-col">0.668</td>
-                <td class="num-col">0.567</td>
-                <td class="num-col">0.722</td>
-              </tr>
-              <tr data-type="code">
-                <td class="model-name">F2LLM-0.6B</td>
-                <td><span class="badge badge-dl">CODE</span></td>
-                <td class="num-col">0.348</td>
-                <td class="num-col">0.583</td>
-                <td class="num-col">0.742</td>
-                <td class="num-col">0.795</td>
-                <td class="num-col">0.336</td>
-                <td class="num-col">0.576</td>
-                <td class="num-col">0.540</td>
-                <td class="num-col">0.686</td>
-              </tr>
-              <tr data-type="general">
-                <td class="model-name">Qwen3-Emb-8B</td>
-                <td><span class="badge badge-fm">GENERAL</span></td>
-                <td class="num-col">0.341</td>
-                <td class="num-col">0.551</td>
-                <td class="num-col">0.726</td>
-                <td class="num-col">0.786</td>
-                <td class="num-col">0.299</td>
-                <td class="num-col">0.535</td>
-                <td class="num-col">0.526</td>
-                <td class="num-col">0.664</td>
-              </tr>
-              <tr data-type="general">
-                <td class="model-name">Qwen3-Emb-0.6B</td>
-                <td><span class="badge badge-fm">GENERAL</span></td>
-                <td class="num-col">0.350</td>
-                <td class="num-col">0.579</td>
-                <td class="num-col">0.665</td>
-                <td class="num-col">0.757</td>
-                <td class="num-col">0.419</td>
-                <td class="num-col">0.719</td>
-                <td class="num-col">0.508</td>
-                <td class="num-col">0.675</td>
-              </tr>
+              <!-- v202602 -->
+              <tr data-type="code" data-version="v202602" class="row-highlight"><td class="model-name"><strong>C2LLM-7B</strong></td><td><span class="badge badge-dl">CODE</span></td><td class="num-col"><strong>0.435</strong></td><td class="num-col"><strong>0.765</strong></td><td class="num-col"><strong>0.822</strong></td><td class="num-col"><strong>0.838</strong></td><td class="num-col">0.661</td><td class="num-col">0.998</td><td class="num-col"><strong>0.639</strong></td><td class="num-col"><strong>0.815</strong></td></tr>
+              <tr data-type="code" data-version="v202602"><td class="model-name">C2LLM-0.5B</td><td><span class="badge badge-dl">CODE</span></td><td class="num-col">0.429</td><td class="num-col">0.713</td><td class="num-col">0.800</td><td class="num-col">0.833</td><td class="num-col">0.664</td><td class="num-col">0.978</td><td class="num-col">0.625</td><td class="num-col">0.789</td></tr>
+              <tr data-type="closed" data-version="v202602"><td class="model-name">GemEmb-2</td><td><span class="badge badge-stat">CLOSED</span></td><td class="num-col">0.420</td><td class="num-col">0.755</td><td class="num-col">0.764</td><td class="num-col"><strong>0.838</strong></td><td class="num-col"><strong>0.709</strong></td><td class="num-col"><strong>1.000</strong></td><td class="num-col">0.607</td><td class="num-col">0.811</td></tr>
+              <tr data-type="code" data-version="v202602"><td class="model-name">Jina-code-emb-1.5b</td><td><span class="badge badge-dl">CODE</span></td><td class="num-col">0.405</td><td class="num-col">0.713</td><td class="num-col">0.767</td><td class="num-col">0.827</td><td class="num-col">0.686</td><td class="num-col">0.976</td><td class="num-col">0.600</td><td class="num-col">0.786</td></tr>
+              <tr data-type="code" data-version="v202602"><td class="model-name">F2LLM-4B</td><td><span class="badge badge-dl">CODE</span></td><td class="num-col">0.400</td><td class="num-col">0.694</td><td class="num-col">0.788</td><td class="num-col">0.825</td><td class="num-col">0.515</td><td class="num-col">0.839</td><td class="num-col">0.597</td><td class="num-col">0.767</td></tr>
+              <tr data-type="code" data-version="v202602"><td class="model-name">Jina-code-emb-0.5b</td><td><span class="badge badge-dl">CODE</span></td><td class="num-col">0.397</td><td class="num-col">0.679</td><td class="num-col">0.742</td><td class="num-col">0.808</td><td class="num-col"><strong>0.699</strong></td><td class="num-col">0.980</td><td class="num-col">0.585</td><td class="num-col">0.761</td></tr>
+              <tr data-type="general" data-version="v202602"><td class="model-name">Jina-emb-v4</td><td><span class="badge badge-fm">GENERAL</span></td><td class="num-col">0.398</td><td class="num-col">0.676</td><td class="num-col">0.756</td><td class="num-col">0.805</td><td class="num-col">0.546</td><td class="num-col">0.895</td><td class="num-col">0.583</td><td class="num-col">0.753</td></tr>
+              <tr data-type="general" data-version="v202602"><td class="model-name">Qwen3-Emb-4B</td><td><span class="badge badge-fm">GENERAL</span></td><td class="num-col">0.399</td><td class="num-col">0.651</td><td class="num-col">0.763</td><td class="num-col">0.813</td><td class="num-col">0.386</td><td class="num-col">0.713</td><td class="num-col">0.576</td><td class="num-col">0.734</td></tr>
+              <tr data-type="code" data-version="v202602"><td class="model-name">F2LLM-1.7B</td><td><span class="badge badge-dl">CODE</span></td><td class="num-col">0.377</td><td class="num-col">0.625</td><td class="num-col">0.761</td><td class="num-col">0.819</td><td class="num-col">0.408</td><td class="num-col">0.668</td><td class="num-col">0.567</td><td class="num-col">0.722</td></tr>
+              <tr data-type="code" data-version="v202602"><td class="model-name">F2LLM-0.6B</td><td><span class="badge badge-dl">CODE</span></td><td class="num-col">0.348</td><td class="num-col">0.583</td><td class="num-col">0.742</td><td class="num-col">0.795</td><td class="num-col">0.336</td><td class="num-col">0.576</td><td class="num-col">0.540</td><td class="num-col">0.686</td></tr>
+              <tr data-type="general" data-version="v202602"><td class="model-name">Qwen3-Emb-8B</td><td><span class="badge badge-fm">GENERAL</span></td><td class="num-col">0.341</td><td class="num-col">0.551</td><td class="num-col">0.726</td><td class="num-col">0.786</td><td class="num-col">0.299</td><td class="num-col">0.535</td><td class="num-col">0.526</td><td class="num-col">0.664</td></tr>
+              <tr data-type="general" data-version="v202602"><td class="model-name">Qwen3-Emb-0.6B</td><td><span class="badge badge-fm">GENERAL</span></td><td class="num-col">0.350</td><td class="num-col">0.579</td><td class="num-col">0.665</td><td class="num-col">0.757</td><td class="num-col">0.419</td><td class="num-col">0.719</td><td class="num-col">0.508</td><td class="num-col">0.675</td></tr>
+              <!-- v202603 -->
+              <tr data-type="closed" data-version="v202603" class="row-highlight" style="display:none"><td class="model-name"><strong>GemEmb-2</strong></td><td><span class="badge badge-stat">CLOSED</span></td><td class="num-col">0.434</td><td class="num-col">0.749</td><td class="num-col">0.784</td><td class="num-col"><strong>0.812</strong></td><td class="num-col"><strong>0.698</strong></td><td class="num-col"><strong>1.000</strong></td><td class="num-col"><strong>0.624</strong></td><td class="num-col">0.805</td></tr>
+              <tr data-type="code" data-version="v202603" style="display:none"><td class="model-name"><strong>C2LLM-7B</strong></td><td><span class="badge badge-dl">CODE</span></td><td class="num-col"><strong>0.443</strong></td><td class="num-col"><strong>0.753</strong></td><td class="num-col">0.766</td><td class="num-col"><strong>0.812</strong></td><td class="num-col">0.659</td><td class="num-col">0.997</td><td class="num-col">0.615</td><td class="num-col"><strong>0.806</strong></td></tr>
+              <tr data-type="code" data-version="v202603" style="display:none"><td class="model-name">C2LLM-0.5B</td><td><span class="badge badge-dl">CODE</span></td><td class="num-col">0.430</td><td class="num-col">0.716</td><td class="num-col">0.725</td><td class="num-col">0.810</td><td class="num-col">0.656</td><td class="num-col">0.970</td><td class="num-col">0.591</td><td class="num-col">0.786</td></tr>
+              <tr data-type="code" data-version="v202603" style="display:none"><td class="model-name">Jina-code-emb-1.5b</td><td><span class="badge badge-dl">CODE</span></td><td class="num-col">0.414</td><td class="num-col">0.705</td><td class="num-col">0.735</td><td class="num-col">0.806</td><td class="num-col">0.671</td><td class="num-col">0.973</td><td class="num-col">0.590</td><td class="num-col">0.780</td></tr>
+              <tr data-type="code" data-version="v202603" style="display:none"><td class="model-name">Jina-code-emb-0.5b</td><td><span class="badge badge-dl">CODE</span></td><td class="num-col">0.386</td><td class="num-col">0.650</td><td class="num-col">0.725</td><td class="num-col">0.792</td><td class="num-col">0.677</td><td class="num-col">0.963</td><td class="num-col">0.574</td><td class="num-col">0.749</td></tr>
+              <tr data-type="code" data-version="v202603" style="display:none"><td class="model-name">F2LLM-4B</td><td><span class="badge badge-dl">CODE</span></td><td class="num-col">0.407</td><td class="num-col">0.695</td><td class="num-col">0.735</td><td class="num-col">0.808</td><td class="num-col">0.500</td><td class="num-col">0.766</td><td class="num-col">0.568</td><td class="num-col">0.755</td></tr>
+              <tr data-type="general" data-version="v202603" style="display:none"><td class="model-name">Qwen3-Emb-4B</td><td><span class="badge badge-fm">GENERAL</span></td><td class="num-col">0.390</td><td class="num-col">0.626</td><td class="num-col">0.704</td><td class="num-col">0.800</td><td class="num-col">0.392</td><td class="num-col">0.603</td><td class="num-col">0.535</td><td class="num-col">0.704</td></tr>
+              <tr data-type="code" data-version="v202603" style="display:none"><td class="model-name">F2LLM-1.7B</td><td><span class="badge badge-dl">CODE</span></td><td class="num-col">0.383</td><td class="num-col">0.603</td><td class="num-col">0.690</td><td class="num-col">0.776</td><td class="num-col">0.383</td><td class="num-col">0.562</td><td class="num-col">0.525</td><td class="num-col">0.679</td></tr>
+              <tr data-type="code" data-version="v202603" style="display:none"><td class="model-name">F2LLM-0.6B</td><td><span class="badge badge-dl">CODE</span></td><td class="num-col">0.344</td><td class="num-col">0.545</td><td class="num-col">0.641</td><td class="num-col">0.762</td><td class="num-col">0.334</td><td class="num-col">0.491</td><td class="num-col">0.480</td><td class="num-col">0.640</td></tr>
+              <tr data-type="general" data-version="v202603" style="display:none"><td class="model-name">Qwen3-Emb-8B</td><td><span class="badge badge-fm">GENERAL</span></td><td class="num-col">0.328</td><td class="num-col">0.521</td><td class="num-col">0.635</td><td class="num-col">0.752</td><td class="num-col">0.320</td><td class="num-col">0.450</td><td class="num-col">0.469</td><td class="num-col">0.620</td></tr>
+              <tr data-type="general" data-version="v202603" style="display:none"><td class="model-name">Qwen3-Emb-0.6B</td><td><span class="badge badge-fm">GENERAL</span></td><td class="num-col">0.349</td><td class="num-col">0.541</td><td class="num-col">0.597</td><td class="num-col">0.731</td><td class="num-col">0.384</td><td class="num-col">0.551</td><td class="num-col">0.467</td><td class="num-col">0.630</td></tr>
             </tbody>
           </table>
         </div>
@@ -357,7 +243,7 @@
       </div>
       <div class="globe-container">
         <script type="text/javascript" id="clstr_globe"
-          src="//clustrmaps.com/globe.js?d=1c9gf"></script>
+          src="//clustrmaps.com/globe.js?d=PP7aOx7uvUs6rmV2RTHl7NeUF_0mt9yxNqv2f_Y2OMs"></script>
         <noscript>
           <div class="globe-placeholder">
             <svg viewBox="0 0 200 200" width="260" height="260">
