@@ -104,15 +104,12 @@ a:hover { color: var(--ember); border-bottom-color: var(--ember); text-decoratio
   color: var(--ink);
   letter-spacing: -0.01em;
   border: none;
-  display: flex;
-  align-items: center;
-  gap: 0.4rem;
 }
 .brand:hover { color: var(--scarlet); text-decoration: none; border: none; }
-.brand-icon {
-  height: 24px;
-  width: auto;
-  vertical-align: middle;
+.brand-alipay {
+  color: var(--scarlet);
+  font-style: italic;
+  margin-right: 0.2rem;
 }
 
 .nav-links {
