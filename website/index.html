@@ -67,6 +67,7 @@
         <img src="https://hits.sh/hq-bench.github.io/coreb-page.svg?view=total&style=flat&label=Visitors&color=f59e0b&labelColor=0d1117" alt="Visitor count">
       </div>
       <ul class="news-list">
+        <li><span class="news-date">[2026-05-07]</span> <a href="https://huggingface.co/hq-bench/coreb-code-reranker">CoREB-Reranker</a> (merged weights) released on Hugging Face.</li>
         <li><span class="news-date">[2026-05-06]</span> <a href="https://arxiv.org/abs/2605.04615">CoREB paper</a> released on arXiv.</li>
         <li><span class="news-date">[2026-05-06]</span> Code (<a href="https://github.com/hq-bench/coreb">coreb</a>), model (<a href="https://huggingface.co/hq-bench/coreb-code-reranker">coreb-code-reranker</a>) and benchmark set (<a href="https://huggingface.co/datasets/hq-bench/coreb">coreb</a>) open-sourced on GitHub &amp; Hugging Face.</li>
       </ul>
@@ -176,7 +177,7 @@
     <div class="section-inner">
       <h2 class="section-title">Reranker Evaluation</h2>
       <div class="info-box">
-        <strong>No off-the-shelf reranker is net-positive across all three tasks.</strong> Reranking top-128 from C2LLM-7B on <code>v202603</code>: Jina v2 collapses code-to-text by &minus;22.4%; a 12-point swing separates the best and worst baseline on the same task. Our fine-tuned <strong>CoREB-Reranker</strong> is the only reranker that achieves consistent gains across all three tasks.
+        <strong>No off-the-shelf reranker is net-positive across all three tasks.</strong> Reranking top-128 on <code>v202603</code>: Jina v2 collapses code-to-text by &minus;22.4%; a 12-point swing separates the best and worst baseline on the same task. Our fine-tuned <a href="https://huggingface.co/hq-bench/coreb-code-reranker" target="_blank" rel="noopener"><strong>CoREB-Reranker</strong></a> (Qwen3-Reranker-4B + LoRA, trained on 3.1M samples from v202602) is the only reranker that achieves consistent gains across all three tasks.
       </div>
       <div class="table-wrap">
         <div class="table-scroll">
@@ -221,16 +222,16 @@
               </tr>
               <tr class="row-highlight">
                 <td class="model-name"><strong>CoREB-Reranker</strong></td>
-                <td class="num-col">+1.5%</td>
-                <td class="num-col">+0.5%</td>
-                <td class="num-col">+4.0%</td>
+                <td class="num-col">+1.1%</td>
+                <td class="num-col">+0.8%</td>
+                <td class="num-col">+5.1%</td>
                 <td><span class="lvl lvl-high">Yes</span></td>
               </tr>
             </tbody>
           </table>
         </div>
       </div>
-      <p class="table-note">&Delta; nDCG@10 (%) after reranking top-128 from C2LLM-7B on <code>v202603</code> (train-on-v202602, test-on-v202603). CoREB-Reranker is fine-tuned from Qwen3-Reranker-4B via LoRA on 3.1M samples.</p>
+      <p class="table-note">&Delta; nDCG@10 (%) after reranking top-128 on <code>v202603</code> (train-on-v202602, test-on-v202603). CoREB-Reranker is fine-tuned from <a href="https://huggingface.co/Qwen/Qwen3-Reranker-4B" target="_blank" rel="noopener">Qwen3-Reranker-4B</a> via LoRA &mdash; available at <a href="https://huggingface.co/hq-bench/coreb-code-reranker" target="_blank" rel="noopener">hq-bench/coreb-code-reranker</a>.</p>
     </div>
   </section>
 
