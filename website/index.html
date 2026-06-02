@@ -22,16 +22,17 @@
         <ul class="nav-links">
           <li><a href="#news">News</a></li>
           <li><a href="#about">About</a></li>
-          <li><a href="#leaderboard">Leaderboard</a></li>
-          <li><a href="#reranker">Reranker</a></li>
-          <li><a href="#citation">Cite</a></li>
           <li class="more-research-wrap">
             <button class="nav-more-btn" id="more-research-toggle">More Research <span class="more-arrow">&#9662;</span></button>
             <ul class="more-research-dropdown" id="more-research-dropdown">
               <li><a href="https://hq-bench.github.io/quito/" target="_blank" rel="noopener">QuitoBench</a></li>
               <li><a href="https://famma-bench.github.io/famma/" target="_blank" rel="noopener">FAMMA</a></li>
+              <li><a href="https://serendipityoneinc.github.io/look-bench-page/" target="_blank" rel="noopener">LookBench</a></li>
             </ul>
           </li>
+          <li><a href="#leaderboard">Leaderboard</a></li>
+          <li><a href="#reranker">Reranker</a></li>
+          <li><a href="#citation">Cite</a></li>
         </ul>
       </nav>
     </div>
@@ -67,6 +68,7 @@
         <img src="https://hits.sh/hq-bench.github.io/coreb-page.svg?view=total&style=flat&label=Visitors&color=f59e0b&labelColor=0d1117" alt="Visitor count">
       </div>
       <ul class="news-list">
+        <li><span class="news-date">[2026-06-02]</span> CoREB has been integrated into the <a href="https://huggingface.co/spaces/mteb/leaderboard" target="_blank" rel="noopener">MTEB Leaderboard</a> as a domain-specific benchmark. You can now load it via <code>mteb.get_benchmark("CoREB")</code> in the <a href="https://github.com/embeddings-benchmark/mteb" target="_blank" rel="noopener">mteb</a> Python package.</li>
         <li><span class="news-date">[2026-05-07]</span> <a href="https://huggingface.co/hq-bench/coreb-code-reranker">CoREB-Reranker</a> (merged weights) released on Hugging Face.</li>
         <li><span class="news-date">[2026-05-06]</span> <a href="https://arxiv.org/abs/2605.04615">CoREB paper</a> released on arXiv.</li>
         <li><span class="news-date">[2026-05-06]</span> Code (<a href="https://github.com/hq-bench/coreb">coreb</a>), model (<a href="https://huggingface.co/hq-bench/coreb-code-reranker">coreb-code-reranker</a>) and benchmark set (<a href="https://huggingface.co/datasets/hq-bench/coreb">coreb</a>) open-sourced on GitHub &amp; Hugging Face.</li>
